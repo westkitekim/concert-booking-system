@@ -31,6 +31,7 @@ docker-compose up -d
 
 ## 📜 API 명세
 - [SwaggerHub API Docs 이동](https://app.swaggerhub.com/apis-docs/westkitekim/concert-reservation-api/1.0.0)
+- [View Image](docs/swaggerui.md)
   <br/>
 
 ## 📌 요구사항
