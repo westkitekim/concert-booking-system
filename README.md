@@ -19,7 +19,7 @@ docker-compose up -d
 본 프로젝트는 실제 서비스에 가까운 공연 예매 기능을 구현하는 시스템이다. <br/>
 사용자 대기열 처리, 좌석 임시 점유, 잔액 충전 및 결제까지의 흐름을 시나리오 기반으로 설계하고, 동시성 제어와 공정성을 고려해 구현한다.<br/>
 테스트 가능한 구조로 설계하여 유지보수성과 확장성을 갖춘 시스템을 구현하는데에 목적이 있다.
-<br/>
+<br/><br/>
 
 ## 🚗 마일스톤
 - [마일스톤 링크](https://github.com/users/westkitekim/projects/1/views/1)
@@ -28,6 +28,10 @@ docker-compose up -d
 ## 📚 요구사항 분석 및 설계
 - [분석 및 설계 문서 링크](docs/requirement-analysis-design.md)
 <br/>
+
+## 📜 API 명세
+- [SwaggerHub API Docs 이동](https://app.swaggerhub.com/apis-docs/westkitekim/concert-reservation-api/1.0.0)
+  <br/>
 
 ## 📌 요구사항
 ### 1. 대기열 토큰 API
