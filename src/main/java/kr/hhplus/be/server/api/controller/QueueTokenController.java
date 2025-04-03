@@ -26,7 +26,7 @@ public class QueueTokenController {
 
     private static final Map<String, QueueTokenResponse> issuedTokens = new HashMap<>();
 
-    @PostMapping
+    @PostMapping("/token")
     @Operation(summary = "대기열 토큰 발급", description = "UUID 기반 토큰 생성 후 대기열 입장")
     @ApiResponse(responseCode = "200", description = "정상 발급", content = @Content(schema = @Schema(implementation = QueueTokenResponse.class)))
     public ResponseEntity<QueueTokenResponse> issueToken(@RequestBody @Valid QueueTokenRequest request) {
