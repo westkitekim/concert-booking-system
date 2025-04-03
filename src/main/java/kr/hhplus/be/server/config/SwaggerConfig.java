@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @OpenAPIDefinition(
         info = @Info(
-                title = "HHPlus Concert API",
+                title = "콘서트 예약 API",
                 version = "v1",
-                description = "HHPlus 콘서트 예약 시스템 API 명세"
+                description = "콘서트 예약 시스템 API 명세"
         ),
         servers = {
                 @Server(url = "/", description = "Local Server")
