@@ -26,7 +26,7 @@ docker-compose up -d
 <br/>
 
 ## 📚 요구사항 분석 및 설계
-- [분석 및 설계 문서 링크](docs/requirements-analysis.md)
+- [분석 및 설계 문서 링크](docs/requirement-analysis-design.md)
 <br/>
 
 ## 📌 요구사항
