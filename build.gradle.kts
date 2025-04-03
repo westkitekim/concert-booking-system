@@ -44,6 +44,9 @@ dependencies {
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:mysql")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	// Springdoc OpenAPI for Swagger UI
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 }
 
 tasks.withType<Test> {
