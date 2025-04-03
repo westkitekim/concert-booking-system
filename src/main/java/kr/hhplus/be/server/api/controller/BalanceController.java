@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Balance", description = "잔액 API")
 public class BalanceController {
 
-    @PostMapping("/charge")
+    @PutMapping("/charge")
     @Operation(summary = "잔액 충전", description = "사용자에게 잔액을 충전합니다.")
     @ApiResponse(responseCode = "200", description = "정상 응답",
             content = @Content(schema = @Schema(implementation = BalanceResponse.class)))
