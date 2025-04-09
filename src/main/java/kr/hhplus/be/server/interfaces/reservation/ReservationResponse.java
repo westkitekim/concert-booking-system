@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.api.controller.dto.response;
+package kr.hhplus.be.server.interfaces.reservation;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

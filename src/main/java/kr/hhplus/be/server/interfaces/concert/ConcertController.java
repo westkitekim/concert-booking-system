@@ -1,8 +1,7 @@
-package kr.hhplus.be.server.api.controller;
+package kr.hhplus.be.server.interfaces.concert;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.hhplus.be.server.api.controller.dto.response.SeatInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
