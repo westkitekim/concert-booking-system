@@ -19,10 +19,13 @@ import static org.mockito.Mockito.*;
 class AccountServiceTest {
 
     @Mock
-    AccountRepository repository; // Repository mock 처리
+    AccountRepository repository;
+
+    @Mock
+    User user;
 
     @InjectMocks
-    AccountService service; // 서비스 객체 (테스트 대상)
+    AccountService service;
 
     @Test
     @DisplayName("잔액 조회 - 계좌가 존재할 때")
@@ -30,13 +33,13 @@ class AccountServiceTest {
         // given
         Long userId = 1L;
         Account account = accountWithAmount(userId, 1000);
-        when(repository.findByUserId(userId)).thenReturn(Optional.of(account)); // mock repository
+        when(repository.findByUserId(userId)).thenReturn(Optional.of(account));
 
         // when
-        BigDecimal balance = service.getBalance(userId); // 실제 테스트 로직
+        AccountBalanceInfo info = service.getBalance(userId);
 
         // then
-        assertThat(balance).isEqualByComparingTo("1000");
+        assertThat(info.balance()).isEqualByComparingTo("1000");
     }
 
     @Test
@@ -44,10 +47,10 @@ class AccountServiceTest {
     void getBalance_notFound_throwsException() {
         // given
         Long userId = 1L;
-        when(repository.findByUserId(userId)).thenReturn(Optional.empty()); // mock repository, 계좌 없음
+        when(repository.findByUserId(userId)).thenReturn(Optional.empty());
 
         // when & then
-        assertThrows(IllegalArgumentException.class, () -> service.getBalance(userId)); // 예외 발생 검증
+        assertThrows(IllegalArgumentException.class, () -> service.getBalance(userId));
     }
 
     @Test
@@ -56,14 +59,14 @@ class AccountServiceTest {
         // given
         Long userId = 1L;
         Account account = accountWithAmount(userId, 1000);
-        when(repository.findByUserId(userId)).thenReturn(Optional.of(account)); // mock repository
+        when(repository.findByUserId(userId)).thenReturn(Optional.of(account));
 
         // when
-        service.charge(userId, BigDecimal.valueOf(500)); // 실제 테스트 로직
+        service.charge(new ChargeAccountCommand( userId, BigDecimal.valueOf(500)));
 
         // then
-        assertThat(account.getAmount()).isEqualByComparingTo("1500"); // 충전 결과 검증
-        verify(repository).save(account); // 저장 호출 여부 검증
+        assertThat(account.getAmount()).isEqualByComparingTo("1500");
+        verify(repository).save(account);
     }
 
     @Test
@@ -72,18 +75,17 @@ class AccountServiceTest {
         // given
         Long userId = 1L;
         Account account = accountWithAmount(userId, 1000);
-        when(repository.findByUserId(userId)).thenReturn(Optional.of(account)); // mock repository
+        when(repository.findByUserId(userId)).thenReturn(Optional.of(account));
 
         // when
-        service.use(userId, BigDecimal.valueOf(500)); // 실제 테스트 로직
+        service.use(userId, BigDecimal.valueOf(500));
 
         // then
-        assertThat(account.getAmount()).isEqualByComparingTo("500"); // 차감 결과 검증
-        verify(repository).save(account); // 저장 호출 여부 검증
+        assertThat(account.getAmount()).isEqualByComparingTo("500");
+        verify(repository).save(account);
     }
 
     private Account accountWithAmount(Long userId, int amount) {
-        User user = new User(userId, "tester", "token123"); // 테스트용 유저 객체
-        return new Account(100L, user, BigDecimal.valueOf(amount)); // Account 객체 생성
+        return new Account(100L, new User(userId, "tester", "token123"), BigDecimal.valueOf(amount));
     }
 }

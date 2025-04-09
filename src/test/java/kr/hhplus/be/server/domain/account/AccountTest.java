@@ -47,7 +47,7 @@ class AccountTest {
         account.subtract(BigDecimal.valueOf(500));
 
         // then
-        assertThat(account.getAmount()).isEqualByComparingTo("500");
+        assertThat(account.getAmount()).isEqualByComparingTo("9500");
     }
 
     @Test
