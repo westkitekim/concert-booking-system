@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.hhplus.be.server.domain.account.AccountService;
 import kr.hhplus.be.server.interfaces.SimpleErrorResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +27,7 @@ public class AccountController {
     @ApiResponse(responseCode = "200", description = "정상 응답",
             content = @Content(schema = @Schema(implementation = AccountResponse.class)))
     public ResponseEntity<AccountResponse> charge(
-            @RequestBody(required = true) AccountRequest request) {
+            @RequestBody AccountRequest request) {
 
         accountService.charge(request.userId(), request.amount());
         BigDecimal balance = accountService.getBalance(request.userId());
@@ -41,7 +40,7 @@ public class AccountController {
     @ApiResponse(responseCode = "200", description = "정상 응답",
             content = @Content(schema = @Schema(implementation = AccountResponse.class)))
     public ResponseEntity<AccountResponse> use(
-            @RequestBody(required = true) AccountRequest request) {
+            @RequestBody AccountRequest request) {
 
         accountService.use(request.userId(), request.amount());
         BigDecimal balance = accountService.getBalance(request.userId());
