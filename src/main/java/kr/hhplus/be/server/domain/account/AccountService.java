@@ -1,6 +1,5 @@
 package kr.hhplus.be.server.domain.account;
 
-import kr.hhplus.be.server.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
