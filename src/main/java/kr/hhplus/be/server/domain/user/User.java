@@ -14,4 +14,8 @@ public class User {
         this.username = username;
         this.queueToken = queueToken;
     }
+
+    public static User of(long userId, String username, String queueToken) {
+        return new User(userId, username, queueToken);
+    }
 }
