@@ -7,9 +7,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository {
 
-    public Optional<User> findById(Long userId);
+    Optional<User> findById(Long userId);
 
-    public User save(User user);
+    User save(User user);
 
-    public Optional<User> findLastUserId();
+    Optional<User> findLastUserId();
 }
