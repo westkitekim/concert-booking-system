@@ -29,6 +29,7 @@ public record PaymentCommand(
         return new PaymentCommand(
                 command.token(),
                 command.userId(),
+                command.concertId(),
                 command.scheduleId(),
                 command.seatId(),
                 command.amount()

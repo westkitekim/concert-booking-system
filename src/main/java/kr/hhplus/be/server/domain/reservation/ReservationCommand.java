@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public record ReservationCommand(
         String token,
         Long userId,
-        String concertId,
+        Long concertId,
         Long scheduleId,
         Long seatId,
         BigDecimal amount

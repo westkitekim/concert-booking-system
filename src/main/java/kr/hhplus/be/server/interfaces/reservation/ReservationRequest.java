@@ -13,7 +13,7 @@ public record ReservationRequest(
         @Schema(description = "유저 ID", example = "user123")
         @NotBlank Long userId,
         @Schema(description = "콘서트 ID", example = "concert1")
-        @NotBlank String concertId,
+        @NotBlank Long concertId,
         @Schema(description = "날짜", example = "2025-04-10")
         @NotNull LocalDate date,
         @Schema(description = "좌석 번호", example = "1")
