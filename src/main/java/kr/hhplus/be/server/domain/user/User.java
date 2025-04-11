@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class User {
 
-    private final long userId;
+    private final Long userId;
     private final String username;
     private final String queueToken;
 

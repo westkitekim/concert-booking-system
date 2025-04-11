@@ -1,9 +1,10 @@
 package kr.hhplus.be.server.domain.user;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 @RequiredArgsConstructor
 public class UserManagerImpl implements UserManager {
 
