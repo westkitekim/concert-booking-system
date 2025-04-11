@@ -1,0 +1,49 @@
+package kr.hhplus.be.server.application;
+
+import kr.hhplus.be.server.domain.account.AccountService;
+import kr.hhplus.be.server.domain.payment.PaymentCommand;
+import kr.hhplus.be.server.domain.payment.PaymentService;
+import kr.hhplus.be.server.domain.queuetoken.QueueTokenService;
+import kr.hhplus.be.server.domain.reservation.ReservationCommand;
+import kr.hhplus.be.server.domain.reservation.ReservationInfo;
+import kr.hhplus.be.server.domain.reservation.ReservationService;
+import kr.hhplus.be.server.domain.seat.SeatStatusEnum;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+
+import kr.hhplus.be.server.interfaces.reservation.ReservationResponse;
+
+@Component
+@RequiredArgsConstructor
+public class ReservationFacade {
+
+    private final QueueTokenService queueTokenService;
+    private final ReservationService reservationService;
+    private final AccountService accountService;
+    private final PaymentService paymentService;
+
+    /**
+     * 임시 점유 + 결제까지 동시에 처리하는 예약 통합 로직
+     */
+    @Transactional
+    public ReservationInfo reserveWithPayment(ReservationCommand command) {
+        // 1. 유효 토큰 검증
+        queueTokenService.validate(command.token(), command.userId());
+
+        // 2. 좌석 점유 (HELD 상태)
+        ReservationInfo holdInfo = reservationService.holdSeat(command);
+
+        // 3. 금액 차감
+        accountService.use(command.userId(), command.amount());
+
+        // 4. 좌석 상태 PAID + 결제 정보 저장
+        PaymentCommand paymentCommand = PaymentCommand.of(command);
+        paymentService.pay(paymentCommand);  // 내부에서 seat 상태 PAID 처리 및 Payment 저장
+
+        // 5. 응답 변환
+        return holdInfo;
+    }
+}
