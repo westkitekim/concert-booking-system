@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -12,7 +13,7 @@ public class QueueTokenScheduler {
 
     private final QueueTokenRepository queueTokenRepository;
 
-    @Scheduled(fixedDelay = 5000) // 5초마다 실행
+    @Scheduled(fixedDelay = 2000) // 2초마다 실행
     public void processQueueAndExpireTokens() {
         processTokenExpiry();   // 1. 만료 처리 먼저
         processQueueEntry();    // 2. 입장 처리
@@ -20,12 +21,14 @@ public class QueueTokenScheduler {
 
     // 토큰 만료 처리
     private void processTokenExpiry() {
-        List<QueueToken> tokens = queueTokenRepository.findAll();
+        LocalDateTime now = LocalDateTime.now();
 
-        for (QueueToken token : tokens) {
-            if (token.isExpiredTime() && token.getTokenStatus() != QueueTokenStatusEnum.EXPIRED) {
-                token.expireToken();
-            }
+        // 대기열 토큰 중 시간 만료된 토큰 상태 갱신
+        List<QueueToken> expiredTokens = queueTokenRepository.findExpiredTokens(now);
+
+        for (QueueToken token : expiredTokens) {
+            token.changeTokenStatus(QueueTokenStatusEnum.EXPIRED);
+            queueTokenRepository.save(token); // 갱신된 상태 저장
         }
     }
 
@@ -39,7 +42,8 @@ public class QueueTokenScheduler {
         for (QueueToken token : waitList) {
             if (admitted >= maxAdmit) break;
             if (!token.isExpiredTime()) {
-                token.changeTokenStatus(QueueTokenStatusEnum.PENDING);
+                token.changeTokenStatus(QueueTokenStatusEnum.READY);
+                queueTokenRepository.save(token);
                 admitted++;
             }
         }

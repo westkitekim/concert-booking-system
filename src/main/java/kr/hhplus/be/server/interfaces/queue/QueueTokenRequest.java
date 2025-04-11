@@ -5,8 +5,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
 public record QueueTokenRequest(
-        @JsonProperty("userId")
-        @Schema(description = "유저 ID", example = "user123")
-        @NotBlank
-        String userId
+        @JsonProperty("username")
+        @Schema(description = "사용자 이름", example = "westkite")
+        @NotBlank(message = "username은 필수입니다.")
+        String username
 ) {}

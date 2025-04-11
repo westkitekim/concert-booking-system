@@ -38,8 +38,27 @@ public class QueueToken {
         this.setExpiresAt(ZonedDateTime.now());
     }
 
-    public void changeTokenStatus(QueueTokenStatusEnum tokenStatus) {
-        this.tokenStatus = tokenStatus;
-        this.setUpdatedAt(ZonedDateTime.now());
+    public void changeTokenStatus(QueueTokenStatusEnum newStatus) {
+        if (this.tokenStatus == newStatus) return;
+        this.tokenStatus = newStatus;
+        this.updatedAt = ZonedDateTime.now();
+    }
+
+    public void validateOwner(Long userId) {
+        if (!this.getUser().getUserId().equals(userId)) {
+            throw new IllegalStateException("토큰이 사용자와 일치하지 않습니다.");
+        }
+    }
+
+    public void validateNotExpired() {
+        if (this.isExpiredTime()) {
+            throw new IllegalStateException("토큰이 만료되었습니다.");
+        }
+    }
+
+    public void validateReady() {
+        if (this.tokenStatus != QueueTokenStatusEnum.READY) {
+            throw new IllegalStateException("입장 가능한 상태가 아닙니다.");
+        }
     }
 }
