@@ -7,6 +7,9 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import kr.hhplus.be.server.application.ReservationFacade;
+import kr.hhplus.be.server.domain.reservation.ReservationCommand;
+import kr.hhplus.be.server.domain.reservation.ReservationInfo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +22,20 @@ import java.util.Set;
 @Tag(name = "Reservation", description = "예약 API")
 public class ReservationController {
 
-    private static final Set<String> reservedSeats = new HashSet<>();
+    private final ReservationFacade reservationFacade;
+
+    public ReservationController(ReservationFacade reservationFacade) {
+        this.reservationFacade = reservationFacade;
+    }
 
     @PostMapping
-    @Operation(summary = "좌석 임시 점유", description = "예약 좌석 임시 점유")
+    @Operation(summary = "좌석 예약", description = "토큰 유효성 검사, 좌석 점유, 결제, 예약 저장까지 전체 예약 흐름 처리")
     @ApiResponse(responseCode = "200", description = "예약 성공", content = @Content(schema = @Schema(implementation = ReservationResponse.class)))
-    @ApiResponse(responseCode = "409", description = "좌석 이미 점유됨")
-    public ResponseEntity<?> reserve(@RequestBody @Valid ReservationRequest request) {
-        String key = request.date().toString() + ":" + request.seatNumber();
-        if (reservedSeats.contains(key)) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("이미 점유된 좌석입니다.");
-        }
-        reservedSeats.add(key);
-        return ResponseEntity.ok(new ReservationResponse("reserved", 5));
+    @ApiResponse(responseCode = "400", description = "유효하지 않은 요청")
+    public ResponseEntity<ReservationResponse> reserve(@RequestBody @Valid ReservationRequest request) {
+        ReservationCommand command = ReservationCommand.of(request);
+        ReservationInfo info = reservationFacade.reserveWithPayment(command);
+        return ResponseEntity.ok(ReservationResponse.from(info));
     }
 }
+
