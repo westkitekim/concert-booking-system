@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import kr.hhplus.be.server.application.PaymentFacade;
 import kr.hhplus.be.server.domain.payment.PaymentCommand;
 import kr.hhplus.be.server.domain.payment.PaymentInfo;
-import kr.hhplus.be.server.domain.payment.PaymentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Payment", description = "결제 API")
 public class PaymentController {
 
-    private final PaymentService paymentService;
+    private final PaymentFacade paymentFacade;
 
-    public PaymentController(PaymentService paymentService) {
-        this.paymentService = paymentService;
+    public PaymentController(PaymentFacade paymentFacade) {
+        this.paymentFacade = paymentFacade;
     }
 
     @PostMapping("/pay")
@@ -29,12 +29,9 @@ public class PaymentController {
     @ApiResponse(responseCode = "200", description = "결제 성공", content = @Content(schema = @Schema(implementation = PaymentResponse.class)))
     @ApiResponse(responseCode = "400", description = "잔액 부족 또는 유효하지 않은 요청")
     public ResponseEntity<PaymentResponse> pay(@RequestBody @Valid PaymentRequest request) {
+
         PaymentCommand command = PaymentCommand.of(request);
-
-        // 결제 처리
-        PaymentInfo info = paymentService.pay(command);
-
-        // 결과 변환 및 응답
+        PaymentInfo info = paymentFacade.pay(command);
         return ResponseEntity.ok(PaymentResponse.from(info));
     }
 
