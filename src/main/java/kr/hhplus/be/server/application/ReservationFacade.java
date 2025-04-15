@@ -1,20 +1,14 @@
 package kr.hhplus.be.server.application;
 
 import kr.hhplus.be.server.domain.account.AccountService;
-import kr.hhplus.be.server.domain.payment.PaymentCommand;
 import kr.hhplus.be.server.domain.payment.PaymentService;
 import kr.hhplus.be.server.domain.queuetoken.QueueTokenService;
 import kr.hhplus.be.server.domain.reservation.ReservationCommand;
 import kr.hhplus.be.server.domain.reservation.ReservationInfo;
 import kr.hhplus.be.server.domain.reservation.ReservationService;
-import kr.hhplus.be.server.domain.seat.SeatStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-
-import kr.hhplus.be.server.interfaces.reservation.ReservationResponse;
 
 @Component
 @RequiredArgsConstructor
