@@ -1,7 +1,6 @@
 package kr.hhplus.be.server.application;
 
 import kr.hhplus.be.server.domain.account.AccountService;
-import kr.hhplus.be.server.domain.payment.PaymentService;
 import kr.hhplus.be.server.domain.queuetoken.QueueTokenService;
 import kr.hhplus.be.server.domain.reservation.ReservationCommand;
 import kr.hhplus.be.server.domain.reservation.ReservationInfo;
@@ -17,7 +16,6 @@ public class ReservationFacade {
     private final QueueTokenService queueTokenService;
     private final ReservationService reservationService;
     private final AccountService accountService;
-    private final PaymentService paymentService;
 
     @Transactional
     public ReservationInfo reserveWithPayment(ReservationCommand command) {
