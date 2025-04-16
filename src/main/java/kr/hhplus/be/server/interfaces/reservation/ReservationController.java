@@ -10,12 +10,8 @@ import jakarta.validation.Valid;
 import kr.hhplus.be.server.application.ReservationFacade;
 import kr.hhplus.be.server.domain.reservation.ReservationCommand;
 import kr.hhplus.be.server.domain.reservation.ReservationInfo;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/reservations")
@@ -34,7 +30,7 @@ public class ReservationController {
     @ApiResponse(responseCode = "400", description = "유효하지 않은 요청")
     public ResponseEntity<ReservationResponse> reserve(@RequestBody @Valid ReservationRequest request) {
         ReservationCommand command = ReservationCommand.of(request);
-        ReservationInfo info = reservationFacade.reserveWithPayment(command);
+        ReservationInfo info = reservationFacade.reserve(command);
         return ResponseEntity.ok(ReservationResponse.from(info));
     }
 }

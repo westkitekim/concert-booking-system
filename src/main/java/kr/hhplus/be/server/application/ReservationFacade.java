@@ -18,7 +18,7 @@ public class ReservationFacade {
     private final AccountService accountService;
 
     @Transactional
-    public ReservationInfo reserveWithPayment(ReservationCommand command) {
+    public ReservationInfo reserve(ReservationCommand command) {
 
         // 1. 유효 토큰 검증
         queueTokenService.validate(command.token(), command.userId());
