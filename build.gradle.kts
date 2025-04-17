@@ -35,7 +35,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
-    // DB
+	// Lombok
+	compileOnly("org.projectlombok:lombok:1.18.28") // 최신 버전
+	annotationProcessor("org.projectlombok:lombok:1.18.28")
+
+	testCompileOnly("org.projectlombok:lombok:1.18.28")
+	testAnnotationProcessor("org.projectlombok:lombok:1.18.28")
+
+	// DB
 	runtimeOnly("com.mysql:mysql-connector-j")
 
     // Test
@@ -47,8 +54,13 @@ dependencies {
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+	// JetBrains test annotation
+	implementation("org.jetbrains:annotations:24.0.0")
+
 	// Springdoc OpenAPI for Swagger UI
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+
+	//
 }
 
 tasks.withType<Test> {
