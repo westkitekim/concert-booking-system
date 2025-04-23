@@ -1,21 +1,39 @@
 package kr.hhplus.be.server.domain.user;
 
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.TestOnly;
 
+@Entity
+@Table(name = "users")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
-    private final Long userId;
-    private final String username;
-    private final String queueToken;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
-    public User(long userId, String username, String queueToken) {
-        this.userId = userId;
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false, unique = true)
+    private String queueToken;
+
+    public User(String username, String queueToken) {
         this.username = username;
         this.queueToken = queueToken;
     }
 
-    public static User of(long userId, String username, String queueToken) {
-        return new User(userId, username, queueToken);
+    @TestOnly
+    public User(Long userId, String username, String queueToken) {
+        this.username = username;
+        this.queueToken = queueToken;
+    }
+
+    public static User of(String username, String queueToken) {
+        return new User(username, queueToken);
     }
 }
