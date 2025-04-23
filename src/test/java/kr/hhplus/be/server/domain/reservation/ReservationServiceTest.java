@@ -36,7 +36,7 @@ class ReservationServiceTest {
         // given
         ReservationCommand command = new ReservationCommand("token", 1L, 10L, 100L, 5000L, BigDecimal.valueOf(5000L)); // 5000L로 명시
         Seat seat = new Seat(100L, 10L, "A", 1, SeatStatusEnum.AVAILABLE); // HELD 아님
-        when(reservationRepository.existsByScheduleIdAndSeatId(10L, "100")).thenReturn(false);
+        when(reservationRepository.existsByScheduleIdAndSeatId(10L, 100L)).thenReturn(false);
         when(seatRepository.findByScheduleIdAndSeatId(10L, 100L)).thenReturn(Optional.of(seat));
 
         // when & then
@@ -49,7 +49,7 @@ class ReservationServiceTest {
     void reserveSeat_shouldFail_whenAlreadyReserved() {
         // given
         ReservationCommand command = new ReservationCommand("token", 1L, 12L, 102L, 5002L, BigDecimal.valueOf(5000L));
-        when(reservationRepository.existsByScheduleIdAndSeatId(10L, "100")).thenReturn(true); // 이미 예약됨
+        when(reservationRepository.existsByScheduleIdAndSeatId(10L, 100L)).thenReturn(true); // 이미 예약됨
 
         // when & then
         IllegalStateException ex = assertThrows(IllegalStateException.class,
@@ -76,7 +76,7 @@ class ReservationServiceTest {
         // given
         ReservationCommand command = new ReservationCommand("token", 1L, 13L, 123L, 5003L, BigDecimal.valueOf(5000L));
         Seat seat = new Seat(100L, 10L, "A", 1, SeatStatusEnum.HELD);
-        when(reservationRepository.existsByScheduleIdAndSeatId(10L, "100")).thenReturn(false);
+        when(reservationRepository.existsByScheduleIdAndSeatId(10L, 100L)).thenReturn(false);
         when(seatRepository.findByScheduleIdAndSeatId(10L, 100L)).thenReturn(Optional.of(seat));
 
         // when
