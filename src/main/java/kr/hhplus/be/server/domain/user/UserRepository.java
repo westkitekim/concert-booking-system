@@ -7,9 +7,9 @@ import java.util.Optional;
 @Repository
 public interface UserRepository {
 
-    Optional<User> findById(Long userId);
+    Optional<User> findByQueueToken(String queueToken);
+
+    Optional<User> findById(Long id);
 
     User save(User user);
-
-    Optional<User> findLastUserId();
 }

@@ -12,12 +12,7 @@ public class UserManagerImpl implements UserManager {
 
     @Override
     public User create(String username, String queueToken) {
-        Long lastUserId = userRepository.findLastUserId()
-                .map(User::getUserId)
-                .orElse(0L);
-
-        long newUserId = lastUserId + 1;
-        User user = User.of(newUserId, username, queueToken);
+        User user = User.of(username, queueToken);
         return userRepository.save(user);
     }
 
