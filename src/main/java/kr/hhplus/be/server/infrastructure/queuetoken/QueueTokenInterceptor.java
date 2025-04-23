@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.infra.queuetoken;
+package kr.hhplus.be.server.infrastructure.queuetoken;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

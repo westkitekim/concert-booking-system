@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.infra.queuetoken;
+package kr.hhplus.be.server.infrastructure.queuetoken;
 
 import kr.hhplus.be.server.domain.queuetoken.QueueToken;
 import kr.hhplus.be.server.domain.queuetoken.QueueTokenRepository;
