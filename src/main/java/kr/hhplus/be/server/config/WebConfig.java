@@ -1,6 +1,6 @@
 package kr.hhplus.be.server.config;
 
-import kr.hhplus.be.server.infra.queuetoken.QueueTokenInterceptor;
+import kr.hhplus.be.server.infrastructure.queuetoken.QueueTokenInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
