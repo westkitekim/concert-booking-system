@@ -48,7 +48,7 @@ class QueueTokenServiceTest {
         // then
         assertEquals(generatedToken, token.getToken());
         assertEquals(QueueTokenStatusEnum.PENDING, token.getTokenStatus());
-        assertEquals(user, token.getUser());
+        assertEquals(user.getUserId(), token.getUserId());
         verify(queueTokenRepository).save(token);
     }
 
@@ -56,7 +56,7 @@ class QueueTokenServiceTest {
     void change_tokenStatus_success() {
         // given
         User user = new User(1L, "testUser", "");
-        QueueToken token = new QueueToken(user, "token-123", 1);
+        QueueToken token = new QueueToken(user.getUserId(), "token-123", 1);
         given(queueTokenRepository.findByToken("token-123")).willReturn(Optional.of(token));
 
         // when
@@ -71,7 +71,7 @@ class QueueTokenServiceTest {
     void selectToken_success_by_Id() {
         // given
         User user = new User(4L, "testUser", "");
-        QueueToken token = new QueueToken(user, "token-456", 1);
+        QueueToken token = new QueueToken(3L, user.getUserId(), "token-456", 1);
         token.changeTokenStatus(QueueTokenStatusEnum.PENDING);
 
         given(queueTokenRepository.findByToken("token-456")).willReturn(Optional.of(token));

@@ -37,7 +37,7 @@ public class QueueTokenService {
 
         // 3. 토큰 생성 및 저장
         String tokenVal = tokenGenerator.generateToken(user.getUserId());
-        QueueToken token = new QueueToken(user, tokenVal, nextPosition);
+        QueueToken token = new QueueToken(user.getUserId(), tokenVal, nextPosition);
         queueTokenRepository.save(token);
         return token;
     }

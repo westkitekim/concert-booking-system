@@ -25,7 +25,7 @@ public record QueueTokenResponse(
         public static QueueTokenResponse from(QueueToken token) {
                 return new QueueTokenResponse(
                         token.getToken(),
-                        token.getUser().getUserId(),
+                        token.getUserId(),
                         token.getPosition(),
                         token.getTokenStatus()
                 );
