@@ -86,6 +86,6 @@ class AccountServiceTest {
     }
 
     private Account accountWithAmount(Long userId, int amount) {
-        return new Account(100L, new User(userId, "tester", "token123"), BigDecimal.valueOf(amount));
+        return new Account(100L, userId, BigDecimal.valueOf(amount));
     }
 }

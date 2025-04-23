@@ -1,7 +1,5 @@
 package kr.hhplus.be.server.domain.account;
 
-import kr.hhplus.be.server.domain.user.User;
-
 import java.math.BigDecimal;
 
 public record AccountBalanceInfo(
@@ -13,13 +11,11 @@ public record AccountBalanceInfo(
 ) {
     public static AccountBalanceInfo of(Account account) {
 
-        User user = account.getUser();
-
         return new AccountBalanceInfo(
-                user.getUserId(),
+                account.getUserId(),
                 account.getAccountId(),
-                user.getUsername(),
-                user.getQueueToken(),
+                null, // user.getUsername(),
+                null, // user.getQueueToken(),
                 account.getAmount()
         );
     }
