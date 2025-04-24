@@ -53,7 +53,7 @@ public class ReservationService {
                 command.userId(),
                 command.concertId(),
                 command.scheduleId(),
-                String.valueOf(command.seatId())
+                command.seatId()
         );
 
         reservationRepository.save(reservation);

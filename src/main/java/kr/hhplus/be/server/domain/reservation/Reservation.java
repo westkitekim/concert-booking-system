@@ -19,18 +19,18 @@ public class Reservation {
     private Long userId;
 
     @Column(nullable = false)
-    private Long concertId;  // 🔥 추가 필요
+    private Long concertId;
 
     @Column(nullable = false)
     private Long scheduleId;
 
     @Column(nullable = false)
-    private String seatId;
+    private Long seatId;
 
     @Column(nullable = false)
     private LocalDateTime reservedAt;
 
-    public Reservation(Long userId, Long concertId, Long scheduleId, String seatId, LocalDateTime reservedAt) {
+    public Reservation(Long userId, Long concertId, Long scheduleId, Long seatId, LocalDateTime reservedAt) {
         this.userId = userId;
         this.concertId = concertId;
         this.scheduleId = scheduleId;
@@ -38,7 +38,7 @@ public class Reservation {
         this.reservedAt = reservedAt;
     }
 
-    public static Reservation of(Long userId, Long concertId, Long scheduleId, String seatId) {
+    public static Reservation of(Long userId, Long concertId, Long scheduleId, Long seatId) {
         Reservation reservation = new Reservation();
         reservation.userId = userId;
         reservation.concertId = concertId;
