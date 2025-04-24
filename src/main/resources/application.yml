@@ -41,7 +41,7 @@ spring:
     password: application
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create # validate
 
 ---
 
