@@ -20,7 +20,7 @@ public class Seat {
     private Long scheduleId;
 
     @Column(nullable = false)
-    private String row;
+    private String section;
 
     @Column(nullable = false)
     private int seatNumber;
@@ -30,7 +30,7 @@ public class Seat {
 
     public Seat(Long scheduleId, String row, int seatNumber, SeatStatusEnum seatStatus) {
         this.scheduleId = scheduleId;
-        this.row = row;
+        this.section = row;
         this.seatNumber = seatNumber;
         this.seatStatus = seatStatus;
     }
@@ -39,7 +39,7 @@ public class Seat {
     public Seat(Long seatId, Long scheduleId, String row, int seatNumber, SeatStatusEnum seatStatus) {
         this.seatId = seatId;
         this.scheduleId = scheduleId;
-        this.row = row;
+        this.section = row;
         this.seatNumber = seatNumber;
         this.seatStatus = seatStatus;
     }
