@@ -1,11 +1,13 @@
 package kr.hhplus.be.server.domain.payment;
 
+import jakarta.transaction.Transactional;
 import kr.hhplus.be.server.domain.seat.Seat;
 import kr.hhplus.be.server.domain.seat.SeatRepository;
 import kr.hhplus.be.server.domain.seat.SeatStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.time.LocalDateTime;
 
 @Service
@@ -15,6 +17,7 @@ public class PaymentService {
     private final SeatRepository seatRepository;
     private final PaymentRepository paymentRepository;
 
+    @Transactional
     public PaymentInfo pay(PaymentCommand command) {
         Seat seat = seatRepository.findByScheduleIdAndSeatId(command.scheduleId(), command.seatId())
                 .orElseThrow(() -> new IllegalArgumentException("좌석이 존재하지 않습니다."));
