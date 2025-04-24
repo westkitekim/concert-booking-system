@@ -7,7 +7,7 @@ import java.util.List;
 @Repository
 public interface PaymentRepository {
 
-    void save(Payment payment);
+    Payment save(Payment payment);
 
     List<Payment> findByUserId(Long userId);
 }
