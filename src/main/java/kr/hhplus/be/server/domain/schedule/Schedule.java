@@ -1,26 +1,44 @@
 package kr.hhplus.be.server.domain.schedule;
 
-import kr.hhplus.be.server.domain.seat.Seat;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.TestOnly;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
+@Entity
+@Table(name = "schedule")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule {
-    private final Long id;
-    private final Long concertId;
-    private final Long venueId;
-    List<Seat> seats;
-    private final LocalDateTime startAt;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private Long concertId;
+
+    @Column(nullable = false)
+    private Long venueId;
+
+    @Column(nullable = false)
+    private LocalDateTime startAt;
+
+    public Schedule(Long concertId, Long venueId, LocalDateTime startAt) {
+        this.concertId = concertId;
+        this.venueId = venueId;
+        this.startAt = startAt;
+    }
+
+    @TestOnly
     public Schedule(Long id, Long concertId, Long venueId, LocalDateTime startAt) {
         this.id = id;
         this.concertId = concertId;
         this.venueId = venueId;
-        this.seats = new ArrayList<>();
         this.startAt = startAt;
     }
-}
 
+}

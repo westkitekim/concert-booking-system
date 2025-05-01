@@ -40,7 +40,7 @@ public class ReservationService {
     public ReservationInfo reserveSeat(ReservationCommand command) {
         queueTokenService.validate(command.token(), command.userId());
 
-        if (reservationRepository.existsByScheduleIdAndSeatId(command.scheduleId(), String.valueOf(command.seatId()))) {
+        if (reservationRepository.existsByScheduleIdAndSeatId(command.scheduleId(), command.seatId())) {
             throw new IllegalStateException("이미 예약된 좌석입니다.");
         }
 
@@ -49,11 +49,12 @@ public class ReservationService {
         seat.changeStatus(SeatStatusEnum.RESERVED);
         seatRepository.save(seat);
 
-        Reservation reservation = new Reservation();
-        reservation.setUserId(command.userId());
-        reservation.setScheduleId(command.scheduleId());
-        reservation.setSeatId(String.valueOf(command.seatId()));
-        reservation.setReservedAt(LocalDateTime.now());
+        Reservation reservation = Reservation.of(
+                command.userId(),
+                command.concertId(),
+                command.scheduleId(),
+                command.seatId()
+        );
 
         reservationRepository.save(reservation);
 

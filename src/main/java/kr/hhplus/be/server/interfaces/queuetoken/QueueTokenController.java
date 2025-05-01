@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.interfaces.queue;
+package kr.hhplus.be.server.interfaces.queuetoken;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,10 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 
 @RestController

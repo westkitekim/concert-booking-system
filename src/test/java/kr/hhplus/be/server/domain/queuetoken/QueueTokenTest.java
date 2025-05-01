@@ -4,6 +4,7 @@ import kr.hhplus.be.server.domain.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -13,12 +14,11 @@ public class QueueTokenTest {
     @Test
     @DisplayName("만료 시간이 지난 토큰은 만료 상태로 전환되어야 한다")
     void expireToken_shouldExpireProperly() {
-        // given
-        User user = new User(1L, "testUser", "f3d0deb1-4eea-494b-a8a0-04798e5b6e88");
-        QueueToken token = new QueueToken(user, "123", 1);
 
-        // 토큰 만료시간 과거시간으로 설정
-        token.setExpiresAt(ZonedDateTime.now().minusMinutes(1));
+        // given : 토큰 만료시간 과거시간으로 설정
+        User user = new User(1L, "testUser", "f3d0deb1-4eea-494b-a8a0-04798e5b6e88");
+        ZonedDateTime expiredTime = ZonedDateTime.now().minusMinutes(1);
+        QueueToken token = new QueueToken(user.getUserId(), "123", 1, OffsetDateTime.from(expiredTime));
 
         // when
         boolean isExpired = token.isExpiredTime();
@@ -32,15 +32,15 @@ public class QueueTokenTest {
     void changeTokenStatus_shouldUpdateStatusAndTimestamp() {
         // given
         User user = new User(2L, "user2", "89dcd7a8-cc14-4952-b315-f100d24ffa7d");
-        QueueToken token = new QueueToken(user, "1234", 2);
-        ZonedDateTime beforeUpdate = token.getUpdatedAt();
+        QueueToken token = new QueueToken(user.getUserId(), "1234", 2);
+        OffsetDateTime beforeUpdate = token.getUpdatedAt();
 
         // when
         token.changeTokenStatus(QueueTokenStatusEnum.ACTIVE);
 
         // then
         assertThat(token.getTokenStatus()).isEqualTo(QueueTokenStatusEnum.ACTIVE);
-        assertThat(beforeUpdate).isBeforeOrEqualTo(ZonedDateTime.now());
+        assertThat(beforeUpdate).isBeforeOrEqualTo(OffsetDateTime.now());
     }
 
     @Test
@@ -48,14 +48,14 @@ public class QueueTokenTest {
     void expireToken_shouldUpdateStatusAndTimes() {
         // given
         User user = new User(3L, "expireUser", "89dcd7a8-cc14-4952-b315-f100d24ffa7e");
-        QueueToken token = new QueueToken(user, "12345", 3);
+        QueueToken token = new QueueToken(user.getUserId(), "12345", 3);
 
         // when
         token.expireToken();
 
         // then
         assertThat(token.getTokenStatus()).isEqualTo(QueueTokenStatusEnum.EXPIRED);
-        assertThat(token.getExpiresAt()).isBeforeOrEqualTo(ZonedDateTime.now());
-        assertThat(token.getUpdatedAt()).isBeforeOrEqualTo(ZonedDateTime.now());
+        assertThat(token.getExpiresAt()).isBeforeOrEqualTo(OffsetDateTime.now());
+        assertThat(token.getUpdatedAt()).isBeforeOrEqualTo(OffsetDateTime.now());
     }
 }

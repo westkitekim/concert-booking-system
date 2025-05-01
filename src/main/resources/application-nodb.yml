@@ -1,0 +1,5 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+# DB 설정 없이 비워두기

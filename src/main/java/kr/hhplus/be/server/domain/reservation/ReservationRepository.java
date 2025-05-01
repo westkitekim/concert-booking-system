@@ -7,9 +7,9 @@ import java.util.Optional;
 @Repository
 public interface ReservationRepository {
 
-    boolean existsByScheduleIdAndSeatId(Long scheduleId, String seatId);
+    boolean existsByScheduleIdAndSeatId(Long scheduleId, Long seatId);
 
-    Optional<Reservation> findByUserIdAndSeatId(Long userId, String seatId);
+    Optional<Reservation> findByScheduleIdAndSeatId(Long scheduleId, Long seatId);
 
     void save(Reservation reservation);
 }

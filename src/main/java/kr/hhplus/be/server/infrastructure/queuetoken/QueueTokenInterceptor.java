@@ -1,7 +1,10 @@
-package kr.hhplus.be.server.domain.queuetoken;
+package kr.hhplus.be.server.infrastructure.queuetoken;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import kr.hhplus.be.server.domain.queuetoken.InvalidQueueTokenException;
+import kr.hhplus.be.server.domain.queuetoken.QueueTokenService;
+import kr.hhplus.be.server.domain.queuetoken.QueueTokenStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

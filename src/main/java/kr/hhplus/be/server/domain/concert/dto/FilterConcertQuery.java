@@ -1,6 +1,5 @@
-package kr.hhplus.be.server.domain.concert;
+package kr.hhplus.be.server.domain.concert.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record FilterConcertQuery(

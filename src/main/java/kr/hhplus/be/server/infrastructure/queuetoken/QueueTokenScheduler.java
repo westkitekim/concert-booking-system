@@ -1,5 +1,8 @@
-package kr.hhplus.be.server.domain.queuetoken;
+package kr.hhplus.be.server.infrastructure.queuetoken;
 
+import kr.hhplus.be.server.domain.queuetoken.QueueToken;
+import kr.hhplus.be.server.domain.queuetoken.QueueTokenRepository;
+import kr.hhplus.be.server.domain.queuetoken.QueueTokenStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

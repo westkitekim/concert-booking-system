@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.interfaces.queue;
+package kr.hhplus.be.server.interfaces.queuetoken;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +25,7 @@ public record QueueTokenResponse(
         public static QueueTokenResponse from(QueueToken token) {
                 return new QueueTokenResponse(
                         token.getToken(),
-                        token.getUser().getUserId(),
+                        token.getUserId(),
                         token.getPosition(),
                         token.getTokenStatus()
                 );

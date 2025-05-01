@@ -1,6 +1,5 @@
 package kr.hhplus.be.server.domain.account;
 
-import kr.hhplus.be.server.domain.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -76,18 +75,18 @@ class AccountTest {
     @DisplayName("계좌 생성 확인")
     void account_creation() {
         // given
-        User user = new User(1L, "tester", "token123");
+        Long userId = 1L;
 
         // when
-        Account account = new Account(10L, user, BigDecimal.valueOf(1000));
+        Account account = new Account(userId, BigDecimal.valueOf(1000));
 
         // then
-        assertThat(account.getUser()).isEqualTo(user);
+        assertThat(account.getUserId()).isEqualTo(userId);
         assertThat(account.getAmount()).isEqualByComparingTo("1000");
     }
 
     private Account fakeAccount(int amount) {
-        User user = new User(1L, "tester", "token123");
-        return new Account(10L, user, BigDecimal.valueOf(amount));
+        return new Account(1L, BigDecimal.valueOf(amount));
     }
+
 }

@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.domain.concert;
+package kr.hhplus.be.server.domain.concert.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import kr.hhplus.be.server.domain.seat.Seat;
@@ -16,7 +16,7 @@ public record SeatInfo(
                 return new SeatInfo(
                         seat.getSeatId().toString(),
                         seat.getSeatStatus() == SeatStatusEnum.AVAILABLE,
-                        null // userId는 예약 도메인과 연결되는 경우만 설정
+                        null
                 );
         }
 }

@@ -1,21 +1,38 @@
 package kr.hhplus.be.server.domain.account;
 
-import kr.hhplus.be.server.domain.user.User;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.jetbrains.annotations.TestOnly;
 
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "accounts")
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Account {
 
-    private final Long accountId;
-    private final User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long accountId;
+
+    @Column(nullable = false)
+    private Long userId;
+
+    @Column(nullable = false)
     private BigDecimal amount;
 
-    public Account(Long accountId, User user, BigDecimal amount) {
-        this.accountId = accountId;
-        this.user = user;
-        this.amount = (amount != null) ? amount : BigDecimal.ZERO;
+    public Account(Long userId, BigDecimal amount) {
+        this.userId = userId;
+        this.amount = amount != null ? amount : BigDecimal.ZERO;
+    }
+
+    @TestOnly
+    public Account(Long accountId, Long userId, BigDecimal amount) {
+        this.userId = userId;
+        this.amount = amount != null ? amount : BigDecimal.ZERO;
     }
 
     public void add(BigDecimal point) {
@@ -41,4 +58,3 @@ public class Account {
         }
     }
 }
-

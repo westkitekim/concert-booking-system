@@ -19,6 +19,9 @@ public interface QueueTokenRepository {
 
     List<QueueToken> findExpiredTokens(LocalDateTime now);
 
+    Optional<QueueToken> findReadyTokenWithMinPosition();
+
+    boolean existsByUserId(Long userId);
 }
 
 

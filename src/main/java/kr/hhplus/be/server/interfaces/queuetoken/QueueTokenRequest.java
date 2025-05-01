@@ -1,4 +1,4 @@
-package kr.hhplus.be.server.interfaces.queue;
+package kr.hhplus.be.server.interfaces.queuetoken;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
